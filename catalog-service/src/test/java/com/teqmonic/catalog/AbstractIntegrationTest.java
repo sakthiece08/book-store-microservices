@@ -1,6 +1,5 @@
-package com.teqmonic.catalog.integrationTest;
+package com.teqmonic.catalog;
 
-import com.teqmonic.catalog.ContainersConfig;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
