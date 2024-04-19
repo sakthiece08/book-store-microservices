@@ -3,6 +3,7 @@ package com.teqmonic.catalog.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -27,5 +28,18 @@ class ProductRepositoryTest {
     void shouldGetAllProducts() {
         List<ProductEntity> products = productRepository.findAll();
         assertThat(products).hasSize(15);
+    }
+
+    @Test
+    void shouldGetProductByCode() {
+        ProductEntity productEntity = productRepository.findByCode("P100").orElseThrow();
+        assertThat(productEntity.getCode()).isEqualTo("P100");
+        assertThat(productEntity.getName()).isEqualTo("The Hunger Games");
+    }
+
+    @Test
+    void shouldReturnEmptyResponseWhenProductCodeNotExist() {
+        Optional<ProductEntity> entity = productRepository.findByCode("invalid_code");
+        assertThat(entity).isEmpty();
     }
 }

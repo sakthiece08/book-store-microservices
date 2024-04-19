@@ -17,7 +17,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     ProblemDetail handleUnhandledException(Exception e) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        ProblemDetail problemDetail =
+                ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         problemDetail.setTitle("Internal Server Error");
         problemDetail.setType(ISE_FOUND_TYPE);
         problemDetail.setProperty("service", SERVICE_NAME);
