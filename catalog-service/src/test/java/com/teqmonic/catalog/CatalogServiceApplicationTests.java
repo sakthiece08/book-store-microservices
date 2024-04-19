@@ -1,12 +1,11 @@
 package com.teqmonic.catalog;
 
+import com.teqmonic.catalog.integrationTest.AbstractIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
-@Import(ContainersConfig.class)
-@SpringBootTest
-class CatalogServiceApplicationTests {
+class CatalogServiceApplicationTests extends AbstractIntegrationTest {
 
     @Test
     void contextLoads() {}
