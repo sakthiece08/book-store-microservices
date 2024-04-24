@@ -24,6 +24,22 @@ tasks:
   build:
     cmds:
       - "{{.MVNW}} -pl catalog-service spring-boot:build-image -Dskiptests"
+      - "{{.MVNW}} -pl order-service spring-boot:build-image -Dskiptests"
+
+  start_infra:
+    cmds:
+      - "docker compose -f {{.INFRA_DC_FILE}} up -d"
+
+  stop_infra:
+      cmds:
+        - "docker compose -f {{.INFRA_DC_FILE}} stop"
+        - "docker compose -f {{.INFRA_DC_FILE}} rm -f"
+
+  restart_infra:
+      cmds:
+        - task: stop_infra
+        - task: sleep
+        - task: start_infra
 
   start:
     deps: [build]
