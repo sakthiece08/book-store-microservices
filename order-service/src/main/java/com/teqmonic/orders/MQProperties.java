@@ -1,4 +1,4 @@
-package com.teqmonic.order;
+package com.teqmonic.orders;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

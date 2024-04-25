@@ -1,4 +1,4 @@
-package com.teqmonic.order;
+package com.teqmonic.orders;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;

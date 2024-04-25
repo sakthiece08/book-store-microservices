@@ -1,4 +1,4 @@
-package com.teqmonic.order;
+package com.teqmonic.orders;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
@@ -13,7 +13,7 @@ public class ContainersConfig {
     @Bean
     @ServiceConnection
     PostgreSQLContainer<?> postgreSQLContainer() {
-        return new PostgreSQLContainer<>(DockerImageName.parse("postgres:16-alpine"));
+        return new PostgreSQLContainer<>(DockerImageName.parse("postgres:14"));
     }
 
     @Bean

@@ -1,7 +1,7 @@
-package com.teqmonic.order.config;
+package com.teqmonic.orders.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.teqmonic.order.MQProperties;
+import com.teqmonic.orders.MQProperties;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
