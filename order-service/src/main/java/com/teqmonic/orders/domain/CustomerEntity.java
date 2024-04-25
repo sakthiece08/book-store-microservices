@@ -40,6 +40,6 @@ class CustomerEntity {
             })
     private Address address;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
+    @OneToOne(mappedBy = "customer")
     private OrderEntity orders;
 }

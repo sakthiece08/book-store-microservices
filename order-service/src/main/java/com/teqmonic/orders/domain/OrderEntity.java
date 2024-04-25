@@ -43,6 +43,6 @@ class OrderEntity {
     @JoinColumn(name = "customer_id")
     private CustomerEntity customer;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private Set<OrderItemEntity> orderItem;
 }
