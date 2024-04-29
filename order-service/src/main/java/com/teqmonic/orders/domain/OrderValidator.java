@@ -21,7 +21,7 @@ public class OrderValidator {
         for (OrderItem item : orderItem) {
             Product product = productServiceClient
                     .getProductByCode(item.code())
-                    .orElseThrow(() -> new InvalidOrderException("Invalid order: " + item.code()));
+                    .orElseThrow(() -> new InvalidOrderException("Invalid product code: " + item.code()));
             if (item.price().compareTo(product.price()) != 0) {
                 log.error(
                         "Product price not matching, Actual price {}, received price {}",

@@ -11,11 +11,17 @@ import org.springframework.web.client.RestClient;
 @Component
 public class ProductServiceClient {
 
-    private RestClient restClient;
+    private final RestClient restClient;
 
     public Optional<Product> getProductByCode(String code) {
+        log.info("client {}", restClient);
         log.info("Fetching product for code {}", code);
-        return Optional.ofNullable(
-                restClient.get().uri("/api/v1/products/{code}").retrieve().body(Product.class));
+        try {
+            return Optional.ofNullable(
+                    restClient.get().uri("/api/v1/products/{code}", code).retrieve().body(Product.class));
+        } catch (Exception ex) {
+            log.error("Error fetching product for code: {}", code, ex);
+            return Optional.empty();
+        }
     }
 }
