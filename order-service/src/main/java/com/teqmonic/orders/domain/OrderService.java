@@ -14,10 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final OrderValidator orderValidator;
     private final CustomerRepository customerRepository;
 
     public CreateOrderResponse createOrder(String userName, CreateOrderRequest request) {
-
+        log.info("Inside createOrder for username {}", userName);
+        orderValidator.validateOrder(request);
         CustomerEntity customerEntity = OrderMapper.buildCustomerEntity(request);
         customerRepository.save(customerEntity);
         log.info("Customer details have been saved to the database");

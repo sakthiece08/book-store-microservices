@@ -1,7 +1,7 @@
 package com.teqmonic.orders.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.teqmonic.orders.MQProperties;
+import com.teqmonic.orders.ApplicationProperties;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -12,9 +12,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    private final MQProperties properties;
+    private final ApplicationProperties properties;
 
-    public RabbitMQConfig(MQProperties properties) {
+    public RabbitMQConfig(ApplicationProperties properties) {
         this.properties = properties;
     }
 
