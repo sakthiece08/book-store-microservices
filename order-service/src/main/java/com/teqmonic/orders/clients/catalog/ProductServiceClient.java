@@ -1,5 +1,7 @@
 package com.teqmonic.orders.clients.catalog;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,15 +15,18 @@ public class ProductServiceClient {
 
     private final RestClient restClient;
 
+    @CircuitBreaker(name = "catalog-service")
+    @Retry(name = "catalog-service", fallbackMethod = "getProductByCodefallBack")
     public Optional<Product> getProductByCode(String code) {
-        log.info("client {}", restClient);
         log.info("Fetching product for code {}", code);
-        try {
-            return Optional.ofNullable(
-                    restClient.get().uri("/api/v1/products/{code}", code).retrieve().body(Product.class));
-        } catch (Exception ex) {
-            log.error("Error fetching product for code: {}", code, ex);
-            return Optional.empty();
-        }
+
+        return Optional.ofNullable(
+                restClient.get().uri("/api/v1/products/{code}", code).retrieve().body(Product.class));
+    }
+
+    public Optional<Product> getProductByCodefallBack(String code, Throwable t) {
+        log.info("getProductByCodefallBack, code: {}", code);
+        log.error("Error while fetching ProductByCode from Catalog-service: ", t);
+        return Optional.empty();
     }
 }

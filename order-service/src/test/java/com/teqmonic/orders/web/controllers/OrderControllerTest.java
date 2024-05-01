@@ -34,9 +34,9 @@ class OrderControllerTest extends AbstractIntegrationTest {
                         },
                         "items": [
                             {
-                                "code": "CD-001",
+                                "code": "P100",
                                 "name": "Battery",
-                                "price": 10,
+                                "price": 34,
                                 "quantity": 2
                             }
                         ]
