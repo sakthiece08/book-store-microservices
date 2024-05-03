@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.teqmonic.orders.AbstractIntegrationTest;
 import com.teqmonic.orders.testdata.TestDataFactory;
 import io.restassured.http.ContentType;
+import java.math.BigDecimal;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ class OrderControllerTest extends AbstractIntegrationTest {
     class createOrderTest {
         @Test
         void shouldCreateOrderSuccessfully() {
+            mockGetProductByCode("P100", "Battery", new BigDecimal(34));
             var payload =
                     """
                     {
