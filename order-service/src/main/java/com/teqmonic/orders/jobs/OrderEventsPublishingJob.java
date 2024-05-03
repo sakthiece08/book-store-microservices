@@ -14,7 +14,7 @@ public class OrderEventsPublishingJob {
 
     private final OrderEventService orderEventService;
 
-    @Scheduled(cron = "${orders.publish-order-events-job-cron}")
+    @Scheduled(initialDelayString = "10000", fixedDelayString = "15000")
     public void publishOrders() {
         log.info("OrderEventsPublishingJob, publishOrders started at: {}", Instant.now());
         orderEventService.publishOrderEvents();

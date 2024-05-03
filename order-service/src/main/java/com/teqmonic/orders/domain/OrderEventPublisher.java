@@ -18,11 +18,10 @@ public class OrderEventPublisher {
     private final Binding bindingNewOrderQueue;
 
     public void publish(OrderCreatedEvent event) {
-        this.send(event);
+        this.send(event, properties.newOrdersQueue());
     }
 
-    private void send(Object payload) {
-        log.info("bindingNewOrderQueue getRoutingKey:: {}", bindingNewOrderQueue.getRoutingKey());
-        rabbitTemplate.convertAndSend(properties.orderEventsExchange(), "new-order-queue-routing-key", payload);
+    private void send(Object payload, String routingKey) { // we have defined queue name as routing key in MQ config
+        rabbitTemplate.convertAndSend(properties.orderEventsExchange(), routingKey, payload);
     }
 }
