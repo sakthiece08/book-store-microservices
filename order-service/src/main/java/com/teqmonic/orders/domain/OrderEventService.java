@@ -7,7 +7,6 @@ import com.teqmonic.orders.domain.models.events.OrderCancelledEvent;
 import com.teqmonic.orders.domain.models.events.OrderCreatedEvent;
 import com.teqmonic.orders.domain.models.events.OrderDeliveredEvent;
 import com.teqmonic.orders.domain.models.events.OrderFailedEvent;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
