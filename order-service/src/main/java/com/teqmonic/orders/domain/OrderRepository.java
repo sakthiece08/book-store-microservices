@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
-    List<OrderEntity> findByStatus(OrderStatusEnum status);
+    List<OrderEntity> findByStatusOrderByCreatedAtAsc(OrderStatusEnum status);
 }

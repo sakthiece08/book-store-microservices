@@ -77,6 +77,7 @@ public class OrderEventService {
     public void publishOrderEvents() {
         Sort sort = Sort.by("createdAt").ascending();
         // use pageable in case of more records
+        // Also we can use OrderByCreatedAtAsc in Repository method instead of passing Sort
         List<OrderEventEntity> events = orderEventRepository.findAllByIsEventPublished(sort, false);
         log.info("Found {} Order Events to be published", events.size());
         for (OrderEventEntity event : events) {

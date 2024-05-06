@@ -48,7 +48,7 @@ public class OrderService {
      *
      */
     public void processNewOrders() {
-        List<OrderEntity> newOrders = orderRepository.findByStatus(OrderStatusEnum.NEW);
+        List<OrderEntity> newOrders = orderRepository.findByStatusOrderByCreatedAtAsc(OrderStatusEnum.NEW);
         log.info("Processing {} new order jobs", newOrders.size());
         for (OrderEntity order : newOrders) process(order);
     }
