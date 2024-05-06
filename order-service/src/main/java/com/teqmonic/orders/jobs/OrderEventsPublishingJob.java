@@ -14,9 +14,9 @@ public class OrderEventsPublishingJob {
 
     private final OrderEventService orderEventService;
 
-    @Scheduled(initialDelayString = "10000", fixedDelayString = "15000")
+    @Scheduled(initialDelayString = "10000", fixedDelayString = "60000")
     public void publishOrders() {
-        log.info("OrderEventsPublishingJob, publishOrders started at: {}", Instant.now());
+        log.info("Publishing Order Events at: {}", Instant.now());
         orderEventService.publishOrderEvents();
     }
 }

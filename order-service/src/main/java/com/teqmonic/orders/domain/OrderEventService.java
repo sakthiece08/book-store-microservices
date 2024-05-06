@@ -1,11 +1,14 @@
 package com.teqmonic.orders.domain;
 
-import static org.hibernate.query.sqm.tree.SqmNode.log;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.teqmonic.orders.domain.models.OrderCreatedEvent;
 import com.teqmonic.orders.domain.models.OrderEventType;
+import com.teqmonic.orders.domain.models.events.OrderCancelledEvent;
+import com.teqmonic.orders.domain.models.events.OrderCreatedEvent;
+import com.teqmonic.orders.domain.models.events.OrderDeliveredEvent;
+import com.teqmonic.orders.domain.models.events.OrderFailedEvent;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +33,43 @@ public class OrderEventService {
                 .eventType(OrderEventType.ORDER_CREATED)
                 .createdAt(event.createdAt())
                 .payload(toJsonPayload(event))
+                .isEventPublished(event.isEventPublished())
+                .build();
+        orderEventRepository.save(orderEventEntity);
+    }
+
+    void save(OrderDeliveredEvent event) {
+        OrderEventEntity orderEventEntity = OrderEventEntity.builder()
+                .eventId(event.eventId())
+                .orderNumber(event.orderNumber())
+                .eventType(OrderEventType.ORDER_DELIVERED)
+                .createdAt(event.createdAt())
+                .payload(toJsonPayload(event))
+                .isEventPublished(event.isEventPublished())
+                .build();
+        orderEventRepository.save(orderEventEntity);
+    }
+
+    void save(OrderCancelledEvent event) {
+        OrderEventEntity orderEventEntity = OrderEventEntity.builder()
+                .eventId(event.eventId())
+                .orderNumber(event.orderNumber())
+                .eventType(OrderEventType.ORDER_CANCELLED)
+                .createdAt(event.createdAt())
+                .payload(toJsonPayload(event))
+                .isEventPublished(event.isEventPublished())
+                .build();
+        orderEventRepository.save(orderEventEntity);
+    }
+
+    void save(OrderFailedEvent event) {
+        OrderEventEntity orderEventEntity = OrderEventEntity.builder()
+                .eventId(event.eventId())
+                .orderNumber(event.orderNumber())
+                .eventType(OrderEventType.ORDER_CANCELLED)
+                .createdAt(event.createdAt())
+                .payload(toJsonPayload(event))
+                .isEventPublished(event.isEventPublished())
                 .build();
         orderEventRepository.save(orderEventEntity);
     }
@@ -37,12 +77,18 @@ public class OrderEventService {
     public void publishOrderEvents() {
         Sort sort = Sort.by("createdAt").ascending();
         // use pageable in case of more records
-        List<OrderEventEntity> events = orderEventRepository.findAll(sort);
+        List<OrderEventEntity> events = orderEventRepository.findAllByIsEventPublished(sort, false);
         log.info("Found {} Order Events to be published", events.size());
         for (OrderEventEntity event : events) {
-            log.info("Processing Event Id: {}, Order number: {}", event.getEventId(), event.getOrderNumber());
+            log.info("Publishing Event Id: {}, Order number: {}", event.getEventId(), event.getOrderNumber());
             this.publishEvent(event);
-            orderEventRepository.delete(event);
+            event.setEventPublished(true);
+            event.setUpdatedAt(LocalDateTime.now());
+            orderEventRepository.save(event);
+            log.info(
+                    "Updated Event published to true for Event Id: {}, Order number: {}",
+                    event.getEventId(),
+                    event.getOrderNumber());
         }
     }
 
@@ -53,6 +99,18 @@ public class OrderEventService {
                 OrderCreatedEvent orderCreatedEvent = fromJsonPayload(event.getPayload(), OrderCreatedEvent.class);
                 orderEventPublisher.publish(orderCreatedEvent);
                 break;
+            case ORDER_DELIVERED:
+                OrderDeliveredEvent orderDeliveredEvent =
+                        fromJsonPayload(event.getPayload(), OrderDeliveredEvent.class);
+                orderEventPublisher.publish(orderDeliveredEvent);
+                break;
+            case ORDER_CANCELLED:
+                OrderCancelledEvent orderCancelledEvent =
+                        fromJsonPayload(event.getPayload(), OrderCancelledEvent.class);
+                orderEventPublisher.publish(orderCancelledEvent);
+                break;
+            default:
+                log.warn("Unsupported Order Event Type: {}", eventType);
         }
     }
 

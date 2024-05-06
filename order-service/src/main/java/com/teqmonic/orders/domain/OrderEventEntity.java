@@ -36,6 +36,8 @@ public class OrderEventEntity {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    private boolean isEventPublished;
+
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 }

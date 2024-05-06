@@ -8,6 +8,7 @@ create table order_events
     event_type   text                                         not null,
     payload      text                                         not null,
     created_at   timestamp                                    not null,
+    is_event_published BOOLEAN                                not null,
     updated_at   timestamp,
     primary key (id)
 );
