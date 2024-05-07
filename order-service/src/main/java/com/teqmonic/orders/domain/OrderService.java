@@ -1,14 +1,14 @@
 package com.teqmonic.orders.domain;
 
-import com.teqmonic.orders.domain.models.CreateOrderRequest;
-import com.teqmonic.orders.domain.models.CreateOrderResponse;
-import com.teqmonic.orders.domain.models.OrderStatusEnum;
+import com.teqmonic.orders.domain.models.*;
 import com.teqmonic.orders.domain.models.events.OrderCancelledEvent;
 import com.teqmonic.orders.domain.models.events.OrderCreatedEvent;
 import com.teqmonic.orders.domain.models.events.OrderDeliveredEvent;
 import com.teqmonic.orders.domain.models.events.OrderFailedEvent;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -41,6 +41,27 @@ public class OrderService {
         orderEventService.save(orderCreatedEvent);
         log.info("OrderCreatedEvent is saved");
         return new CreateOrderResponse(savedOrder.getOrderNumber());
+    }
+
+    public List<OrderSummary> findOrders(String userName) {
+        return orderRepository.findByUserName(userName);
+    }
+
+    public Optional<OrderDTO> findUserOrder(String orderNumber, String userName) {
+        return orderRepository
+                .findByOrderNumberAndUserName(orderNumber, userName)
+                .map(order -> new OrderDTO(
+                        order.getOrderNumber(),
+                        order.getUserName(),
+                        order.getOrderItem().stream()
+                                .map(item -> new OrderItem(
+                                        item.getCode(), item.getName(), item.getPrice(), item.getQuantity()))
+                                .collect(Collectors.toSet()),
+                        order.getCustomer().getCustomer(),
+                        order.getCustomer().getAddress(),
+                        order.getStatus(),
+                        order.getComments(),
+                        order.getCreatedAt()));
     }
 
     /**
