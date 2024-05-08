@@ -26,6 +26,7 @@ tasks:
     cmds:
       - "{{.MVNW}} -pl catalog-service spring-boot:build-image -Dskiptests"
       - "{{.MVNW}} -pl order-service spring-boot:build-image -Dskiptests"
+      - "{{.MVNW}} -pl notification-service spring-boot:build-image -Dskiptests"
 
   start_infra:
     cmds:
