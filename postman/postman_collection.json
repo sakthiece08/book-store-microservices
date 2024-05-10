@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "5607d7d1-5ed9-47cb-af20-b93a49ad016d",
+		"name": "BookStore Microservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2931585"
+	},
+	"item": [
+		{
+			"name": "order-service",
+			"item": [
+				{
+					"name": "order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Is the order creation success?\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customer\": {\n        \"name\": \"Tom\",\n        \"email\": \"tomemail@test.com\",\n        \"phone\": \"416-990-9999\"\n    },\n    \"deliveryAddress\": {\n        \"addressLine1\": \"715-204 Aiphine st\",\n        \"city\": \"Toronto\",\n        \"state\": \"ON\",\n        \"zipCode\": \"M4S1C0\",\n        \"country\": \"india\"\n    },\n    \"items\": [\n        {\n            \"code\": \"P102\",\n            \"name\": \"The Chronicles of Narnia\",\n            \"price\": 44.50,\n            \"quantity\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{order-api-host}}/api/orders",
+							"host": [
+								"{{order-api-host}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Is get order success?\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{order-api-host}}/api/orders",
+							"host": [
+								"{{order-api-host}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Is get user order success?\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{order-api-host}}/api/orders/{{order-id}}",
+							"host": [
+								"{{order-api-host}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"{{order-id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "catalog-service",
+			"item": [
+				{
+					"name": "products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Is get products success?\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{catalog-service-host}}/api/v1/products",
+							"host": [
+								"{{catalog-service-host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Is get product details success?\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{catalog-service-host}}/api/v1/products/{{product_code}}",
+							"host": [
+								"{{catalog-service-host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"{{product_code}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "order-id",
+			"value": "7db6a047-977c-46ab-b3a2-9b4a1d5e22d6"
+		},
+		{
+			"key": "product_code",
+			"value": "P110"
+		}
+	]
+}

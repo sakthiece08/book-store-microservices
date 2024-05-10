@@ -49,11 +49,11 @@ spring:
 springdoc:
   swagger-ui:
     use-root-path: true
-    urls:
-      - name: catalog
-        url: /v3/api-docs/catalog
-      - name: orders
-        url: /v3/api-docs/orders
+#    urls:
+#      - name: catalog
+#        url: /v3/api-docs/catalog
+#      - name: orders
+#        url: /v3/api-docs/orders
 
 
 
