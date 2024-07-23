@@ -40,7 +40,6 @@ public class OrderControllerUnitTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-
     @BeforeEach
     void setUp() {
         given(securityService.getLoginUserName()).willReturn("user");
