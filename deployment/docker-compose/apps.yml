@@ -88,3 +88,18 @@ services:
       resources:
         limits:
           memory: 700m
+
+  bookstore-webapp:
+    image: sakthiece08/bookstore-webapp
+    container_name: webapp
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - BOOKSTORE_API_GATEWAY_URL=http://api-gateway:8100
+      - OAUTH2_SERVER_URL=http://keycloak:9191
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 700m
