@@ -42,14 +42,14 @@ public class OrderControllerUnitTest {
 
     @BeforeEach
     void setUp() {
-        given(securityService.getLoginUserName()).willReturn("user");
+        // given(securityService.getLoginUserName()).willReturn("user");
     }
 
     @ParameterizedTest(name = "[{index}]-{0}")
     @MethodSource("createOrderRequestProvider")
     @WithMockUser
     void shouldReturnBadRequestWhenOrderPayloadIsInvalid(CreateOrderRequest request) throws Exception {
-        given(orderService.createOrder(eq("siva"), any(CreateOrderRequest.class)))
+        given(orderService.createOrder(eq("alex"), any(CreateOrderRequest.class)))
                 .willReturn(null);
 
         System.out.println("CreateOrderRequest: " + request);
@@ -61,10 +61,30 @@ public class OrderControllerUnitTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @ParameterizedTest(name = "[{index}]-{0}")
+    @MethodSource("createValidOrderRequestProvider")
+    @WithMockUser
+    void shouldReturnSuccessWhenOrderPayloadIsValid(CreateOrderRequest request) throws Exception {
+        given(orderService.createOrder(eq("alex"), any(CreateOrderRequest.class)))
+                .willReturn(null);
+
+        System.out.println("CreateOrderRequest: " + request);
+
+        mockMvc.perform(post("/api/orders")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isCreated());
+    }
+
     static Stream<Arguments> createOrderRequestProvider() {
         return Stream.of(
                 arguments(named("Order with Invalid Customer", createOrderRequestWithInvalidCustomer())),
                 arguments(named("Order with Invalid Delivery Address", createOrderRequestWithInvalidDeliveryAddress())),
                 arguments(named("Order with No Items", createOrderRequestWithNoItems())));
+    }
+
+    static Stream<Arguments> createValidOrderRequestProvider() {
+        return Stream.of(arguments(named("Valid Order", createValidOrderRequest())));
     }
 }
