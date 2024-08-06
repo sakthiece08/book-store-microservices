@@ -6,10 +6,10 @@ import java.util.Set;
 
 public record OrderDTO(
         Long id,
-        String orderNumber,
+        @JsonProperty(value = "order_number") String orderNumber,
         Set<OrderItem> items,
         Customer customer,
-        Address deliveryAddress,
+        @JsonProperty(value = "delivery_address") Address deliveryAddress,
         OrderStatus status,
         String comments) {
 

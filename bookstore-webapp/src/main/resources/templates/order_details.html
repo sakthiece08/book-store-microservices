@@ -8,7 +8,7 @@
 <div layout:fragment="content">
     <div th:x-data="|initData('${orderNumber}')|">
         <h2>Your Order placed successfully</h2>
-        <h4>Order Number: <span x-text="orderDetails.orderNumber">orderNumber</span></h4>
+        <h4>Order Number: <span x-text="orderDetails.order_number">orderNumber</span></h4>
         <h4>Order Status: <span x-text="orderDetails.status">status</span></h4>
         <hr/>
         <div class="pb-3">
@@ -65,7 +65,7 @@
                            id="deliveryAddressLine1"
                            name="deliveryAddressLine1"
                            readonly
-                           x-model="orderDetails.deliveryAddress.addressLine1"/>
+                           x-model="orderDetails.delivery_address.address_line1"/>
                 </div>
                 <div class="col-6">
                     <label for="deliveryAddressLine2" class="form-label">Delivery Address Line 2</label>
@@ -73,7 +73,7 @@
                            id="deliveryAddressLine2"
                            name="deliveryAddressLine2"
                            readonly
-                           x-model="orderDetails.deliveryAddress.addressLine2"/>
+                           x-model="orderDetails.delivery_address.addressLine2"/>
                 </div>
                 <div class="col-6">
                     <label for="deliveryAddressCity" class="form-label">Delivery Address City</label>
@@ -81,7 +81,7 @@
                            id="deliveryAddressCity"
                            name="deliveryAddressCity"
                            readonly
-                           x-model="orderDetails.deliveryAddress.city"/>
+                           x-model="orderDetails.delivery_address.city"/>
                 </div>
                 <div class="col-6">
                     <label for="deliveryAddressState" class="form-label">Delivery Address State</label>
@@ -89,7 +89,7 @@
                            id="deliveryAddressState"
                            name="deliveryAddressState"
                            readonly
-                           x-model="orderDetails.deliveryAddress.state"/>
+                           x-model="orderDetails.delivery_address.state"/>
                 </div>
                 <div class="col-6">
                     <label for="deliveryAddressZipCode" class="form-label">Delivery Address ZipCode</label>
@@ -97,7 +97,7 @@
                            id="deliveryAddressZipCode"
                            name="deliveryAddressZipCode"
                            readonly
-                           x-model="orderDetails.deliveryAddress.zipCode"/>
+                           x-model="orderDetails.delivery_address.zipCode"/>
                 </div>
                 <div class="col-6">
                     <label for="deliveryAddressCountry" class="form-label">Delivery Address Country</label>
@@ -105,7 +105,7 @@
                            id="deliveryAddressCountry"
                            name="deliveryAddressCountry"
                            readonly
-                           x-model="orderDetails.deliveryAddress.country"/>
+                           x-model="orderDetails.delivery_address.country"/>
                 </div>
             </form>
         </div>

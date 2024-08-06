@@ -49,7 +49,9 @@ public class OrderController {
     @ResponseBody
     OrderDTO getOrder(@PathVariable String orderNumber) {
         log.info("Fetching order details for orderNumber: {}", orderNumber);
-        return orderServiceClient.getOrder(getHeaders(), orderNumber);
+        OrderDTO orderDTO = orderServiceClient.getOrder(getHeaders(), orderNumber);
+        System.out.println(orderDTO);
+        return orderDTO;
     }
 
     @GetMapping("/orders")
