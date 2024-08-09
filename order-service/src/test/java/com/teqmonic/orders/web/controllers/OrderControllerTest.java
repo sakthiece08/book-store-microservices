@@ -34,7 +34,7 @@ class OrderControllerTest extends AbstractIntegrationTest {
                             "phone": "416-990-0989"
                         },
                         "deliveryAddress": {
-                            "addressLine1": "715-200 Aiphine st",
+                            "address_line1": "715-200 Aiphine st",
                             "city": "Toronto",
                             "state": "ON",
                             "zipCode": "M4S1C0",
@@ -43,7 +43,7 @@ class OrderControllerTest extends AbstractIntegrationTest {
                         "items": [
                             {
                                 "code": "P100",
-                                "name": "Battery",
+                                "name": "Product 1",
                                 "price": 34,
                                 "quantity": 2
                             }
