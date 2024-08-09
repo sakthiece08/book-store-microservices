@@ -7,6 +7,7 @@ import com.teqmonic.orders.domain.models.CreateOrderRequest;
 import com.teqmonic.orders.domain.models.CreateOrderResponse;
 import com.teqmonic.orders.domain.models.OrderDTO;
 import com.teqmonic.orders.domain.models.OrderSummary;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/api/orders")
+@SecurityRequirement(name = "security_auth")
 public class OrderController {
 
     private final OrderService orderService;
