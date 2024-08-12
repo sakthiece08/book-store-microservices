@@ -26,6 +26,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "25432:5432"
     healthcheck:
@@ -95,3 +97,5 @@ services:
       resources:
         limits:
           memory: 2gb
+volumes:
+  postgres_data:

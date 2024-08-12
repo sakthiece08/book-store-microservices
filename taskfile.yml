@@ -61,6 +61,10 @@ tasks:
     cmds:
       - "{{.SLEEP_CMD}} {{.DURATION}}"
 
+  start_app:
+    cmds:
+      - "docker compose -f {{.INFRA_DC_FILE}} -f {{.APPS_DC_FILE}} up -d"
+
   restart:
     cmds:
       - task: stop
