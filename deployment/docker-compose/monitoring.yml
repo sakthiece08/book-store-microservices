@@ -38,6 +38,16 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin123
       - GF_USERS_ALLOW_SIGN_UP=false
+
+  tempo:
+    image: grafana/tempo:2.5.0
+    container_name: tempo
+    command: "-config.file /etc/tempo-config.yml"
+    ports:
+      - "3200:3200"     # Tempo
+      - "9411:9411"     # Zipkin
+    volumes:
+      - ./tempo/tempo.yml:/etc/tempo-config.yml
 volumes:
   grafana_data: {}
 
