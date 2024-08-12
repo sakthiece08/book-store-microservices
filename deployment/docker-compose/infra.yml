@@ -1,5 +1,5 @@
 version: "3.8"
-name: 'book-store-microservices'
+name: 'book-store-microservice'
 services:
   catalog-db:
     image: postgres:16-alpine

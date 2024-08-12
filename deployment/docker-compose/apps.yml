@@ -1,4 +1,4 @@
-name: 'spring-boot-catalog-service'
+name: 'book-store-microservice'
 services:
   catalog-service:
     image: sakthiece08/bookstore-catalog-service
