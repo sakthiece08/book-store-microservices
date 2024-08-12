@@ -11,8 +11,8 @@ import org.springframework.web.client.RestClient;
 @Configuration
 public class CatalogServiceClientConfig {
     @Bean
-    RestClient restClient(ApplicationProperties properties) {
-        return RestClient.builder()
+    RestClient restClient(RestClient.Builder builder, ApplicationProperties properties) {
+        return builder
                 .baseUrl(properties.catalogServiceUrl())
                 .requestFactory(ClientHttpRequestFactories.get(ClientHttpRequestFactorySettings.DEFAULTS
                         .withConnectTimeout(Duration.ofSeconds(5))
